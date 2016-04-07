@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <script type="text/javascript" src="script/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="script/fifo.js"></script>
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/bootstrap-theme.min.css">
+    <title>Algoritmo - FIFO</title>
+</head>
+<body>
+<div class="container">
+    <!-- CPU -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="caja">
+                <h1>CPU</h1>
+                <div id="contenedor-proceso">
+                    <div id="reloj"></div>
+                    <div id="seccion-critica">
+                        <div id="proceso"></div>
+                    </div>
+                    <div id="mensaje"></div>
+                    <div id="respuesta"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="caja">
+                <h1>Tiempo Global: <span id="tiempo-global"></span></h1>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <!--- Estados -->
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="caja">
+                <h1>Listos</h1>
+                <div id="listos">
+                    <ul class="lista lista-listos">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="caja">
+                <h1>Bloqueados</h1>
+                <div id="bloqueados">
+                    <ul class="lista lista-bloquados">
+                        <li>Proceso 1</li>
+                        <li>Proceso 2</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="caja">
+                <h1>Terminados</h1>
+                <div id="terminados">
+                    <ul class="lista lista-terminados">
+                        <ul class="lista lista-terminado">
+                            <li>Proceso 1</li>
+                            <li>Proceso 2</li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 border">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="caja">
+                <h1>Tabla de Gantt</h1>
+                <canvas id="gantt" width="1000px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="dist/js/bootstrap.min.js"></script>
+</body>
+</html>
