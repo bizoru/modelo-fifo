@@ -16,14 +16,38 @@ function actualizar(){
 
     $("#tiempo-global").html();
     $("#tiempo-global").html(tiempoGlobal);
+    pintarCola(colaListos,".lista-listos");
 
-    function pintarCola(cola){
+
+}
+
+function pintarCola(cola,selectorHtml){
+
+    if(cola.cambiado){
+        $(selectorHtml).html("");
         if(!cola.estaVacia()){
-
+            if(cola.traerRaiz()){
+                pintarNodo(cola.traerRaiz(),selectorHtml);
+            }
         }
     }
+    cola.cambiado = false;
+}
 
+function pintarNodo(nodo,selectorHtml){
 
+  $(selectorHtml).prepend(procesoHTML(nodo.proceso));
+  if(nodo.hijo){
+     pintarNodo(nodo.hijo,selectorHtml);
+  }
+}
+
+function procesoHTML(proceso){
+    var html = "<li><div>"+
+               "<p>"+proceso.nombre+"</p>"+
+               "<p>Tiempo rafaga: <b>"+proceso.rafaga+"</b></p>"
+               "</div></li>";
+    return html;
 }
 
 function CPU(){
@@ -45,12 +69,12 @@ function CPU(){
 function Nodo(nombre,hijo) {
 
     this.hijo = hijo;
-    this.nombre = nombre;
-    this.proceso = new Proceso();
+    this.proceso = new Proceso(nombre);
 
 }
 
-function Proceso() {
+function Proceso(nombre) {
+     this.nombre = nombre;
      this.rafaga = Math.floor((Math.random() * 10) + 2);;
      this.tiempoLlegada = tiempoGlobal;
      this.tiempoTerminado = undefined;
@@ -66,10 +90,13 @@ function Proceso() {
 
 function Cola() {
 
+    this.cambiado = false;
+
     this.insertar = function (nodoNuevo) {
 
         if (this.nodoRaiz == undefined) {
             this.nodoRaiz = nodoNuevo;
+            this.cambiado = true;
         } else {
             this.insertarNodoLoco(this.nodoRaiz, nodoNuevo);
 
@@ -77,9 +104,18 @@ function Cola() {
         return true;
     };
 
+    this.traerRaiz =  function(){
+        if(this.nodoRaiz){
+            return this.nodoRaiz;
+            this.cambiado = true;
+        }
+        return undefined;
+    }
+
     this.insertarNodoLoco = function (nodo1, nodo2) {
         if (nodo1.hijo == undefined) {
             nodo1.hijo = nodo2;
+            this.cambiado = true;
         } else {
             this.insertarNodoLoco(nodo1.hijo, nodo2);
         }
@@ -96,6 +132,7 @@ function Cola() {
             } else {
                 this.nodoRaiz = this.nodoRaiz.hijo;
             }
+            this.cambiado = true;
             return nodo;
         }
     };

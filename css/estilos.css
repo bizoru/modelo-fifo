@@ -1,3 +1,9 @@
+body {
+
+    background-image: url('../img/dark.png');
+
+}
+
 @font-face {
 	font-family: "Oswald";
 	src: url('oswald.ttf') format('truetype');
@@ -211,4 +217,31 @@ ul {
     padding-right: 1px;
     padding-left: 1px;
     padding-bottom: 1px;
+    height: 80px;
+}
+
+.glyphicon {
+    margin-right: 12px;
+}
+
+.container {
+
+    margin-top: 50px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.37);
+    box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.37);
+}
+#terminados li{
+    background-color: #80BD80;
+}
+
+#listos li {
+    background-color: #5BC0DE;
+}
+
+.espacio {
+    height: 40px;
 }

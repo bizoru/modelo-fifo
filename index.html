@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="caja">
-                <h1>CPU</h1>
+                <h1><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> CPU</h1>
                 <div id="contenedor-proceso">
                     <div id="reloj"></div>
                     <div id="seccion-critica">
@@ -34,14 +34,23 @@
         </div>
         <div class="col-md-6"></div>
     </div>
+    <div class="row">
+        <div class="col-md-3 espacio">
+        </div>
+    </div>
     <!--- Estados -->
     <div class="row">
-
         <div class="col-md-3">
             <div class="caja">
-                <h1>Listos</h1>
+                <h1><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span> Listos</h1>
                 <div id="listos">
                     <ul class="lista lista-listos">
+                        <li>
+                            <div>
+                                <p>Proceso 1</p>
+                                <p>Estado: <b>Ejecucion</b></p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +58,7 @@
 
         <div class="col-md-3">
             <div class="caja">
-                <h1>Bloqueados</h1>
+                <h1><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Bloqueados</h1>
                 <div id="bloqueados">
                     <ul class="lista lista-bloqueados">
                         <li>
@@ -61,6 +70,7 @@
                         <li>
                             <div>
                                 <p>Proceso 1</p>
+                                <p>Estado: <b>Ejecucion</b></p>
                             </div>
                         </li>
                     </ul>
@@ -69,16 +79,24 @@
         </div>
         <div class="col-md-3">
             <div class="caja">
-                <h1>Terminados</h1>
+                <h1><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Terminados</h1>
                 <div id="terminados">
                     <ul class="lista lista-terminados">
-                            <li>Proceso 1</li>
-                            <li>Proceso 2</li>
+                        <li>
+                            <div>
+                                <p>Proceso 1</p>
+                                <p>Estado: <b>Ejecucion</b></p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-3 border">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 espacio">
         </div>
     </div>
     <div class="row">
