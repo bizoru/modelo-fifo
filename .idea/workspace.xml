@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a26c937e-9a1f-447e-89c8-861c38e397b7" name="Default" comment="">
+    <list default="true" id="a26c937e-9a1f-447e-89c8-861c38e397b7" name="Default" comment="correcion minima">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/estilos.css" afterPath="$PROJECT_DIR$/css/estilos.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/fifo.js" afterPath="$PROJECT_DIR$/script/fifo.js" />
     </list>
     <ignored path="Fifo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,8 +37,8 @@
       <file leaf-file-name="estilos.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/estilos.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="261" column="0" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+            <state relative-caret-position="121">
+              <caret line="189" column="4" selection-start-line="189" selection-start-column="4" selection-end-line="189" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -314,7 +312,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1460364341548</updated>
-      <workItem from="1460364342810" duration="10619000" />
+      <workItem from="1460364342810" duration="10684000" />
     </task>
     <task id="LOCAL-00001" summary="Agregados estilos para los procesos.">
       <created>1460367096335</created>
@@ -330,11 +328,18 @@
       <option name="project" value="LOCAL" />
       <updated>1460374478446</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Overflow agregado, arreglado responsive.">
+      <created>1460376945858</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1460376945858</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10619000" />
+    <option name="totallyTimeSpent" value="10684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1599" y="27" width="1368" height="742" extended-state="6" />
@@ -342,6 +347,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24758364" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -364,7 +370,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Agregados estilos para los procesos." />
     <MESSAGE value="Javascript para el manejo de remocion de procesos en las colas." />
-    <option name="LAST_COMMIT_MESSAGE" value="Javascript para el manejo de remocion de procesos en las colas." />
+    <MESSAGE value="Overflow agregado, arreglado responsive." />
+    <MESSAGE value="correcion minima" />
+    <option name="LAST_COMMIT_MESSAGE" value="correcion minima" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -389,8 +397,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/estilos.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="261" column="0" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+        <state relative-caret-position="121">
+          <caret line="189" column="4" selection-start-line="189" selection-start-column="4" selection-end-line="189" selection-end-column="4" />
           <folding />
         </state>
       </provider>

@@ -93,19 +93,11 @@ header h2{
 }
 
 #proceso{
- Bloqueados
-Cola Vacia
 
-Terminados
-Cola Vacia
-
-
-	background-color: black; 
-	
+	background-color: black;
 	color: white;
 	display: inline-block;
 	text-align: center;
-
 	width: 100%;
 	opacity: 0;
 
