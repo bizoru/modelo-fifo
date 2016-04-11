@@ -17,6 +17,8 @@ function actualizar(){
     $("#tiempo-global").html();
     $("#tiempo-global").html(tiempoGlobal);
     pintarCola(colaListos,".lista-listos");
+    pintarCola(colaBloqueados,".lista-bloqueados");
+    pintarCola(colaTerminados,".lista-terminados");
 
 
 }
@@ -29,6 +31,9 @@ function pintarCola(cola,selectorHtml){
             if(cola.traerRaiz()){
                 pintarNodo(cola.traerRaiz(),selectorHtml);
             }
+        }else{
+            console.log("vacio!");
+            vacio(selectorHtml);
         }
     }
     cola.cambiado = false;
@@ -49,6 +54,14 @@ function procesoHTML(proceso){
                "</div></li>";
     return html;
 }
+
+function vacio(selectorHtml){
+    var html = "<li class='vacio'><div>"+
+        "<p> Cola Vacia</p>"+
+        "</div></li>";
+    $(selectorHtml).html(html);
+}
+
 
 function CPU(){
     this.proceso = undefined;
@@ -90,7 +103,7 @@ function Proceso(nombre) {
 
 function Cola() {
 
-    this.cambiado = false;
+    this.cambiado = true;
 
     this.insertar = function (nodoNuevo) {
 

@@ -93,6 +93,13 @@ header h2{
 }
 
 #proceso{
+ Bloqueados
+Cola Vacia
+
+Terminados
+Cola Vacia
+
+
 	background-color: black; 
 	
 	color: white;
@@ -226,7 +233,7 @@ ul {
 
 .container {
 
-    margin-top: 50px;
+    margin-top: 10px;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
@@ -243,5 +250,30 @@ ul {
 }
 
 .espacio {
-    height: 40px;
+    height: 10px;
+}
+
+li.vacio {
+    background-color: whitesmoke !important;
+    color:black;
+}
+
+#listos {
+
+    height: 320px;
+    overflow-y: auto;
+}
+
+#bloqueados {
+    height: 320px;
+    overflow-y: auto;
+
+
+}
+
+#terminados {
+    height: 320px;
+    overflow-y: auto;
+
+
 }
