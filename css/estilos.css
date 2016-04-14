@@ -270,3 +270,26 @@ li.vacio {
     color: white;
     background-color: #838483;
 }
+
+.titulo {
+    font-family: "Lato";
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.progress-bar-terminado {
+    background: #80BD80 !important;
+}
+
+.progress-bar-ejecucion {
+    background: #FFC107 !important;
+}
+
+.progress-bar-bloqueado {
+    background: #E14658 !important;
+}
+
+.progress-bar-listo {
+    background: #5BC0DE !important;
+}

@@ -52,6 +52,7 @@ function actualizar() {
     pintarCola(colaTerminados, ".lista-terminados");
     pintarCPU('.lista-cpu');
     despachador.despachar();
+    gantt.actualizarGraficos();
 
 
 }
