@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
     <script type="text/javascript" src="script/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="script/jcanvas.min.js"></script>
+    <script type="text/javascript" src="script/gantt.js"></script>
     <script type="text/javascript" src="script/fifo.js"></script>
     <link rel="stylesheet" href="dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="dist/css/bootstrap-theme.min.css">
@@ -36,7 +38,7 @@
     </div>
     <!--- Estados -->
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="caja">
                 <h1><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span> Listos</h1>
                 <div id="listos">
@@ -46,7 +48,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="caja">
                 <h1><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Bloqueados</h1>
                 <div id="bloqueados">
@@ -55,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="caja">
                 <h1><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Terminados</h1>
                 <div id="terminados">
@@ -64,8 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 border">
-        </div>
+
     </div>
     <div class="row">
         <div class="col-md-3 espacio">
