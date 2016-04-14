@@ -44,6 +44,16 @@ function Despachador() {
 
     this.despachar = function () {
         // Manejo de la cola de bloqueados
+        if(!colaBloqueados.estaVacia()){
+            var raiz = colaBloqueados.traerRaiz();
+            if(raiz.proceso.tiempoBloqueo >0 ){
+                raiz.proceso.tiempoBloqueo -= 1;
+            }else{
+                raiz = colaBloqueados.remover();
+                raiz.hijo = undefined;
+                colaListos.insertar(raiz);
+            }
+        }
 
         // Si la cpu esta libre asignar el primer proceso disponible de la cola de listos
         if (!cpu.estaOcupado()) {
@@ -55,12 +65,23 @@ function Despachador() {
                 colaTerminados.insertar(cpu.liberar());
             } else {
                 cpu.nodo.proceso.tiempoEjecucionRestante -= 1;
+                if(debeBloquear()){
+                    cpu.nodo.proceso.tiempoBloqueo = Math.floor(Math.random()*7)+1;
+                    colaBloqueados.insertar(cpu.liberar());
+                }
+
             }
         }
-        // Proceso disponible en la cola de bloqueados
     };
 
 
+}
+
+function debeBloquear(){
+    if(Math.floor(Math.random()*5)+1 == 3 || Math.floor(Math.random()*5)+1 == 1){
+          return true;
+    }
+    return false;
 }
 
 
