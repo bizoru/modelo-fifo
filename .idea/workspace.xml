@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a26c937e-9a1f-447e-89c8-861c38e397b7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/script/nodo.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/estilos.css" afterPath="$PROJECT_DIR$/css/estilos.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/fifo.js" afterPath="$PROJECT_DIR$/script/fifo.js" />
     </list>
     <ignored path="Fifo.iws" />
@@ -50,8 +47,8 @@
       <file leaf-file-name="fifo.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script/fifo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="51" column="62" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
+            <state relative-caret-position="416">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -327,7 +324,7 @@
       <workItem from="1460364342810" duration="10702000" />
       <workItem from="1460598184099" duration="7277000" />
       <workItem from="1460606240835" duration="52000" />
-      <workItem from="1460606333665" duration="6524000" />
+      <workItem from="1460606333665" duration="6589000" />
     </task>
     <task id="LOCAL-00001" summary="Agregados estilos para los procesos.">
       <created>1460367096335</created>
@@ -357,11 +354,18 @@
       <option name="project" value="LOCAL" />
       <updated>1460376997760</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Cola de bloqueados y terminados.">
+      <created>1460613171492</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1460613171492</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24560000" />
+    <option name="totallyTimeSpent" value="24625000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1602" height="901" extended-state="6" />
@@ -402,7 +406,8 @@
     <MESSAGE value="Javascript para el manejo de remocion de procesos en las colas." />
     <MESSAGE value="Overflow agregado, arreglado responsive." />
     <MESSAGE value="correcion minima" />
-    <option name="LAST_COMMIT_MESSAGE" value="correcion minima" />
+    <MESSAGE value="Cola de bloqueados y terminados." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cola de bloqueados y terminados." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -603,8 +608,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script/fifo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="51" column="62" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
+        <state relative-caret-position="416">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>
