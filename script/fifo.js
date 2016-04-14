@@ -68,6 +68,7 @@ function Despachador() {
             }else{
                 raiz = colaBloqueados.remover();
                 raiz.hijo = undefined;
+                raiz.proceso.preparado();
                 colaListos.insertar(raiz);
             }
         }
