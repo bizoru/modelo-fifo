@@ -47,10 +47,9 @@ function Gantt(){
             }
 
             var width = $("#"+this.procesos[proceso]['id']).contents().last("div").width();
+
             if(this.procesos[proceso]['estado'] != "terminado"){
                 $("#"+this.procesos[proceso]['id']).contents().last("div").width((width+5).toString()+"px");
-            }else{
-                $("#"+this.procesos[proceso]['id']).contents().last("div").width(("100%"));
             }
         }
 
