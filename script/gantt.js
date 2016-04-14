@@ -5,14 +5,14 @@ function Gantt(){
     this.registrarProceso = function(proceso){
         this.procesos[proceso.id] = {'estado': proceso.estado, 'nombre': proceso.nombre, 'id': proceso.id};
         this.procesos[proceso.id]['cambio'] = true;
-    }
+    };
 
     this.actualizarEstadoProceso = function(id,estado){
         if(this.procesos[id]){
             this.procesos[id]['estado'] = estado;
             this.procesos[id]['cambio'] = true;
         }
-    }
+    };
 
     this.actualizarGraficos = function () {
 
@@ -41,17 +41,18 @@ function Gantt(){
 
             }else{
 
-
-                    $("#"+this.procesos[proceso]['id']).append(progressBar);
-
-
+                if(this.procesos[proceso]['estado'] != "terminado") {
+                    $("#" + this.procesos[proceso]['id']).append(progressBar);
+                }
             }
 
             var width = $("#"+this.procesos[proceso]['id']).contents().last("div").width();
-            $("#"+this.procesos[proceso]['id']).contents().last("div").width((width+5).toString()+"px");
-
+            if(this.procesos[proceso]['estado'] != "terminado"){
+                $("#"+this.procesos[proceso]['id']).contents().last("div").width((width+5).toString()+"px");
+            }else{
+                $("#"+this.procesos[proceso]['id']).contents().last("div").width(("100%"));
+            }
         }
-
 
 
     }
