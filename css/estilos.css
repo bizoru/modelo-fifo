@@ -5,154 +5,151 @@ body {
 }
 
 @font-face {
-	font-family: "Oswald";
-	src: url('oswald.ttf') format('truetype');
+    font-family: "Oswald";
+    src: url('oswald.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: "Inconsolata";
-	src: url('inconsolata.ttf') format('truetype');
+    font-family: "Inconsolata";
+    src: url('inconsolata.ttf') format('truetype');
 }
-
 
 @font-face {
-	font-family: "Lato";
-	src: url('lato.ttf') format('truetype');
-}
-p{
-	margin:0;
-	padding: 0;
-	font: 70% sans-serif; 
-
+    font-family: "Lato";
+    src: url('lato.ttf') format('truetype');
 }
 
-#cont{
-	background-color: #FFF;
-	height: 1000px;
-	align: center;
-	position: relative;
-}
-#contenedor,#contenedor2{
-	margin:0 auto 0px auto;
-	width: 100%;
-	background-color: #fff;
-	text-align: center;
-}
-
-#contenedor3,#contenedor4{
-	margin:0 auto 0px auto;
-	width: 100%;
-	padding: 20px;
-	background-color: #fff;
-	text-align: center;
-}
-
-#contenedor5,#contenedor6   {
-	margin:0 auto 0px auto;
-	width: 100%;
-	padding: 20px;
-	background-color: #fff;
-	text-align: center;
-}
-
-
-header{
-	box-sizing:border-box;
-	text-align: center;
-	margin:1%;
-	padding: 5px;
-	width: 98%;
-	background-color: red;
-	display: inline-block;
-}
-header h2{
-	margin:0;
-	padding: 0;	
-	
-}
-
-
-#secciones{
-	
-	box-sizing:border-box;
-	text-align: center;
-	width: 100%;
-	
-}
-
-
-#secciones p{
-	box-sizing:border-box;
-	text-align: center;
-	margin:1%;
-	padding: 5px;
-	width: 22%;
-  	font: 100% sans-serif; 
-	display: inline-block;
-	float: left;
-}
-
-#proceso{
-
-	background-color: black;
-	color: white;
-	display: inline-block;
-	text-align: center;
-	width: 100%;
-	opacity: 0;
+p {
+    margin: 0;
+    padding: 0;
+    font: 70% sans-serif;
 
 }
 
+#cont {
+    background-color: #FFF;
+    height: 1000px;
+    align: center;
+    position: relative;
+}
 
-.columna{
-	box-sizing:border-box;
-	text-align: center;
+#contenedor, #contenedor2 {
+    margin: 0 auto 0px auto;
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+}
+
+#contenedor3, #contenedor4 {
+    margin: 0 auto 0px auto;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+#contenedor5, #contenedor6 {
+    margin: 0 auto 0px auto;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+header {
+    box-sizing: border-box;
+    text-align: center;
+    margin: 1%;
     padding: 5px;
-	width: 22%;
-	height: 90%;
-	background-color: RGB(252,235,235); ;
-	display: inline-block;
-	float: left;
+    width: 98%;
+    background-color: red;
+    display: inline-block;
+}
+
+header h2 {
+    margin: 0;
+    padding: 0;
+
+}
+
+#secciones {
+
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+
+}
+
+#secciones p {
+    box-sizing: border-box;
+    text-align: center;
+    margin: 1%;
+    padding: 5px;
+    width: 22%;
+    font: 100% sans-serif;
+    display: inline-block;
+    float: left;
+}
+
+#proceso {
+
+    background-color: black;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+
+}
+
+.columna {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 5px;
+    width: 22%;
+    height: 90%;
+    background-color: RGB(252, 235, 235);;
+    display: inline-block;
+    float: left;
     margin: 1% 1% 20px;
 }
 
-
 .lista {
-	list-style: none;
-	text-align: center;
-	width: 100%;
-
-
-
+    list-style: none;
+    text-align: center;
+    width: 100%;
 }
+
 li {
 
-	font-size: 12px;
+    font-size: 12px;
 
 }
 
 li div {
-	margin-top: 20px;
+    margin-top: 5px;
+    float: left;
+    text-align: left;
+    margin-left: 5px;
 }
 
 li div p {
-	font-size: 12px;
-	font-family: "Inconsolata";
+    font-size: 12px;
+    font-family: "Inconsolata";
+    margin-bottom: 1px;
 }
 
-.lista li{
+.lista li {
 
-	text-align: center;
-	margin-bottom: 1px;
-	padding: 3px;
-	width: 100%;
-	height: 80px;
-	background-color: #E14658;
-	color: white;
-
+    text-align: center;
+    margin-bottom: 1px;
+    padding: 3px;
+    width: 100%;
+    height: 80px;
+    background-color: #E14658;
+    color: white;
 
 }
-
 
 ul {
     padding-left: 1px;
@@ -160,34 +157,30 @@ ul {
     margin-bottom: 1px !important;
 }
 
-#gantt{
-	background-color:RGB(252,235,235);
+#gantt {
 
     height: 100%;
     display: block;
-
 }
 
-
-#barraC{
-	width: 100%;
-	background-color: RGB(226,63,63);
+#barraC {
+    width: 100%;
+    background-color: RGB(226, 63, 63);
 }
 
-#mensaje{
-	display: none;
+#mensaje {
+    display: none;
 }
-
 
 .row h1 {
 
-	font-size: 24px;
-	background-color: #D9B310;
-	padding: 10px;
-	text-align: center;
+    font-size: 24px;
+    background-color: #D9B310;
+    padding: 10px;
+    text-align: center;
     border-bottom: 1px solid #A9A9A9;
     margin-bottom: 1px;
-	font-family: "Lato";
+    font-family: "Lato";
 
 }
 
@@ -202,21 +195,24 @@ ul {
 }
 
 .caja h1 {
-	margin-top: 0px;
-	background-color: #22252C;
-	color:white;
+    margin-top: 0px;
+    background-color: #22252C;
+    color: white;
 }
 
 .border {
 
-
 }
 
-#contenedor-proceso{
+#cpu {
     padding-right: 1px;
     padding-left: 1px;
     padding-bottom: 1px;
-    height: 80px;
+    height: 81px;
+}
+
+#cpu li {
+    background-color: #80BD80;
 }
 
 .glyphicon {
@@ -226,14 +222,16 @@ ul {
 .container {
 
     margin-top: 10px;
+    margin-bottom: 10px;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
-    -webkit-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.37);
-    -moz-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.37);
-    box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 4px 3px 18px 0px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: 4px 3px 18px 0px rgba(0, 0, 0, 0.37);
+    box-shadow: 4px 3px 18px 0px rgba(0, 0, 0, 0.37);
 }
-#terminados li{
+
+#terminados li {
     background-color: #80BD80;
 }
 
@@ -246,8 +244,9 @@ ul {
 }
 
 li.vacio {
-    background-color: whitesmoke !important;
-    color:black;
+    background-color: rgba(43, 43, 43, 0.15) !important;
+    color: black;
+    border: 1px dashed #9E9E9E;
 }
 
 #listos {
@@ -259,13 +258,9 @@ li.vacio {
 #bloqueados {
     height: 320px;
     overflow-y: auto;
-
-
 }
 
 #terminados {
     height: 320px;
     overflow-y: auto;
-
-
 }

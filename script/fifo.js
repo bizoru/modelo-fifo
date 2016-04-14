@@ -2,15 +2,30 @@ var tiempoGlobal = 0;
 var colaListos = new Cola();
 var colaBloqueados = new Cola();
 var colaTerminados = new Cola();
+var cpu = new CPU();
+var despachador = new Despachador();
+
+iniciar();
 
 
-setInterval(function(){
+function iniciar(){
 
-    tiempoGlobal += 1;
-    actualizar();
+    for(var i=0;i<10;i++){
+        colaListos.insertar(new Nodo("proceso "+i));
+    }
 
-},1000);
+    function reloj(){
+        setInterval(function(){
 
+            tiempoGlobal += 1;
+            actualizar();
+
+        },1000);
+    }
+    reloj();
+
+
+}
 
 function actualizar(){
 
@@ -23,7 +38,44 @@ function actualizar(){
 
 }
 
+function Despachador(){
+
+    this.despachar = function(){
+        // Manejo de la cola de bloqueados
+
+        // Si la cpu esta libre asignar el primer proceso disponible de la cola de listos
+        if(!cpu.estaOcupado()){
+            if(!colaListos.estaVacia()){
+                cpu.ejecutar(colaListos.remover());
+            }
+        }else{
+            if(cpu.nodo.proceso.tiempoEjecucionRestante == 0){
+                colaTerminados.insertar(cpu.liberar());
+            }else{
+                cpu.nodo.proceso.tiempoEjecucionRestante -=1;
+            }
+        }
+        // Proceso disponible en la cola de bloqueados
+    };
+
+
+}
+
+
+function pintarCPU(selectorHtml){
+
+    $(selectorHtml).html("");
+    if(cpu.estaOcupado()){
+        pintarNodoSimple(cpu.nodo,selectorHtml);
+    }else{
+        cpuVacio(selectorHtml);
+    }
+
+}
+
 function pintarCola(cola,selectorHtml){
+
+    var colaAux = Object.create(cola);
 
     if(cola.cambiado){
         $(selectorHtml).html("");
@@ -32,25 +84,32 @@ function pintarCola(cola,selectorHtml){
                 pintarNodo(cola.traerRaiz(),selectorHtml);
             }
         }else{
-            console.log("vacio!");
             vacio(selectorHtml);
         }
     }
-    cola.cambiado = false;
 }
 
 function pintarNodo(nodo,selectorHtml){
 
-  $(selectorHtml).prepend(procesoHTML(nodo.proceso));
-  if(nodo.hijo){
-     pintarNodo(nodo.hijo,selectorHtml);
-  }
+    pintarNodoSimple(nodo,selectorHtml);
+    if(nodo.hijo){
+        pintarNodo(nodo.hijo,selectorHtml);
+    }
+    return;
+}
+
+function pintarNodoSimple(nodo,selectorHtml){
+
+    $(selectorHtml).prepend(procesoHTML(nodo.proceso));
 }
 
 function procesoHTML(proceso){
     var html = "<li><div>"+
                "<p>"+proceso.nombre+"</p>"+
-               "<p>Tiempo rafaga: <b>"+proceso.rafaga+"</b></p>"
+               "<p>Tiempo rafaga: <b>"+proceso.rafaga+"</b></p>"+
+               "<p>Tiempo Restante Ejecucion "+proceso.tiempoEjecucionRestante+"</p>"+
+               "<p>Tiempo Bloqueo "+proceso.tiempoBloqueo+"</p>"+
+               "<p>Tiempo Llegada "+proceso.tiempoLlegada+"</p>"+
                "</div></li>";
     return html;
 }
@@ -62,18 +121,35 @@ function vacio(selectorHtml){
     $(selectorHtml).html(html);
 }
 
+function cpuVacio(selectorHtml){
+    var html = "<li class='vacio'><div>"+
+        "<p> CPU Disponible </p>"+
+        "</div></li>";
+    $(selectorHtml).html(html);
+}
 
 function CPU(){
-    this.proceso = undefined;
+
+    this.nodo = undefined;
     this.estaOcupado = function(){
-        if(this.proceso == undefined){
+        if(this.nodo == undefined){
             return false;
         }
         return true;
     };
 
-    this.ejecutar = function(proceso){
-        this.proceso = proceso;
+    this.ejecutar = function(nodo){
+        this.nodo = nodo;
+    }
+
+    this.liberar = function () {
+        if(this.nodo){
+            var n = this.nodo;
+            n.hijo = undefined;
+            this.nodo = undefined;
+            return n;
+        }
+        return undefined;
     }
 
 }
@@ -88,7 +164,9 @@ function Nodo(nombre,hijo) {
 
 function Proceso(nombre) {
      this.nombre = nombre;
-     this.rafaga = Math.floor((Math.random() * 10) + 2);;
+     this.rafaga = Math.floor((Math.random() * 10) + 2);
+     this.tiempoEjecucionRestante = this.rafaga;
+     this.tiempoBloqueo = 0;
      this.tiempoLlegada = tiempoGlobal;
      this.tiempoTerminado = undefined;
      this.tiempoRetorno = undefined;
@@ -128,7 +206,7 @@ function Cola() {
     this.insertarNodoLoco = function (nodo1, nodo2) {
         if (nodo1.hijo == undefined) {
             nodo1.hijo = nodo2;
-            this.cambiado = true;
+
         } else {
             this.insertarNodoLoco(nodo1.hijo, nodo2);
         }
@@ -145,7 +223,7 @@ function Cola() {
             } else {
                 this.nodoRaiz = this.nodoRaiz.hijo;
             }
-            this.cambiado = true;
+
             return nodo;
         }
     };
