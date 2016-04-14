@@ -34,6 +34,8 @@ function actualizar() {
     pintarCola(colaListos, ".lista-listos");
     pintarCola(colaBloqueados, ".lista-bloqueados");
     pintarCola(colaTerminados, ".lista-terminados");
+    pintarCPU('.lista-cpu');
+    despachador.despachar();
 
 
 }

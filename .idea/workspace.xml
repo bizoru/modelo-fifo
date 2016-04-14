@@ -47,8 +47,8 @@
       <file leaf-file-name="fifo.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script/fifo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="368">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -324,7 +324,7 @@
       <workItem from="1460364342810" duration="10702000" />
       <workItem from="1460598184099" duration="7277000" />
       <workItem from="1460606240835" duration="52000" />
-      <workItem from="1460606333665" duration="6589000" />
+      <workItem from="1460606333665" duration="6699000" />
     </task>
     <task id="LOCAL-00001" summary="Agregados estilos para los procesos.">
       <created>1460367096335</created>
@@ -361,11 +361,18 @@
       <option name="project" value="LOCAL" />
       <updated>1460613171492</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Arreglo de formato.">
+      <created>1460613234346</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1460613234346</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24625000" />
+    <option name="totallyTimeSpent" value="24735000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1602" height="901" extended-state="6" />
@@ -407,7 +414,8 @@
     <MESSAGE value="Overflow agregado, arreglado responsive." />
     <MESSAGE value="correcion minima" />
     <MESSAGE value="Cola de bloqueados y terminados." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cola de bloqueados y terminados." />
+    <MESSAGE value="Arreglo de formato." />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglo de formato." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -608,8 +616,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script/fifo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="368">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
