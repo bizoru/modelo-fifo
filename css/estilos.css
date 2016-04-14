@@ -175,7 +175,7 @@ ul {
 .row h1 {
 
     font-size: 24px;
-    background-color: #D9B310;
+    background-color: #66666a;
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid #A9A9A9;
@@ -212,7 +212,7 @@ ul {
 }
 
 #cpu li {
-    background-color: #80BD80;
+    background-color: #FFC107;
 }
 
 .glyphicon {
@@ -263,4 +263,10 @@ li.vacio {
 #terminados {
     height: 320px;
     overflow-y: auto;
+}
+
+.caja-vacia{
+    margin-top: 0px;
+    color: white;
+    background-color: #838483;
 }

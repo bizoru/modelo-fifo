@@ -4,28 +4,40 @@ var colaBloqueados = new Cola();
 var colaTerminados = new Cola();
 var cpu = new CPU();
 var despachador = new Despachador();
+var usuario =  new usuario();
 
 iniciar();
 
 
 function iniciar() {
 
-    for (var i = 0; i < 10; i++) {
-        colaListos.insertar(new Nodo("proceso " + i));
-    }
-
     function reloj() {
         setInterval(function () {
             tiempoGlobal += 1;
             actualizar();
+            usuario.abrirProceso();
 
         }, 1000);
     }
 
     reloj();
 
-
 }
+
+function usuario(){
+    this.nombresProcesos = ['Microsoft Word','Bloc de Notas','Microsoft PowerPoint','Virtualbox','Safari','Google Chrome','Firefox','DOS','Buscaminas','Netbeans','Microsoft Excel'];
+    this.contador = 0;
+    this.abrirProceso = function(){
+         if(this.contador == 4){
+             this.contador = 0;
+             var nombre = this.nombresProcesos[Math.floor(Math.random()*this.nombresProcesos.length-1)+1]
+             colaListos.insertar(new Nodo(nombre));
+         }else{
+             this.contador += 1;
+         }
+    };
+}
+
 
 function actualizar() {
 
@@ -78,7 +90,7 @@ function Despachador() {
 }
 
 function debeBloquear(){
-    if(Math.floor(Math.random()*5)+1 == 3 || Math.floor(Math.random()*5)+1 == 1){
+    if(Math.floor(Math.random()*8)+1 == 3 || Math.floor(Math.random()*8)+1 == 1){
           return true;
     }
     return false;
@@ -127,11 +139,21 @@ function pintarNodoSimple(nodo, selectorHtml) {
 }
 
 function procesoHTML(proceso) {
+
+    var mensajeBloqueo = "";
+    var mensajeTiempoRestante = "";
+    if(proceso.tiempoBloqueo > 0){
+        mensajeBloqueo = "<p>Tiempo Bloqueo <b>" + proceso.tiempoBloqueo + "</b></p>";
+    }
+    if(proceso.tiempoEjecucionRestante > 0){
+        mensajeTiempoRestante = "<p>Tiempo Restante Ejecucion <b>" + proceso.tiempoEjecucionRestante + "</b></p>";
+    }
+
     var html = "<li><div>" +
-        "<p>" + proceso.nombre + "</p>" +
+        "<p><b>" + proceso.nombre + "</p></b>" +
         "<p>Tiempo rafaga: <b>" + proceso.rafaga + "</b></p>" +
-        "<p>Tiempo Restante Ejecucion " + proceso.tiempoEjecucionRestante + "</p>" +
-        "<p>Tiempo Bloqueo " + proceso.tiempoBloqueo + "</p>" +
+        mensajeTiempoRestante+
+        mensajeBloqueo+
         "<p>Tiempo Llegada " + proceso.tiempoLlegada + "</p>" +
         "</div></li>";
     return html;
