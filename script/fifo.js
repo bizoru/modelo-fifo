@@ -4,7 +4,7 @@ var colaBloqueados = new Cola();
 var colaTerminados = new Cola();
 var cpu = new CPU();
 var despachador = new Despachador();
-var usuario =  new usuario();
+var usuario =  new usuario(5);
 var gantt = new Gantt();
 
 iniciar();
@@ -18,26 +18,41 @@ function iniciar() {
             actualizar();
             usuario.abrirProceso();
 
-        }, 1000);
+        }, 2000);
     }
 
     reloj();
 
 }
 
-function usuario(){
-    this.nombresProcesos = ['Microsoft Word','Bloc de Notas','Microsoft PowerPoint','Virtualbox','Safari','Google Chrome','Firefox','DOS','Buscaminas','Netbeans','Microsoft Excel'];
+function usuario(limite){
+    this.limite = limite;
+    this.nombresProcesos = ['Enterprise Architec','Cisco Networks','Visual Studio','Eclipse','Mario Bros','Minecraft','Paint','SQlDeveloper','Microsoft Word','Bloc de Notas','Microsoft PowerPoint','Virtualbox','Safari','Google Chrome','Firefox','DOS','Buscaminas','Netbeans','Microsoft Excel'];
     this.contador = 0;
+    this.cantidadProcesos = 0;
+    this.ejecutar = true;
     this.abrirProceso = function(){
          if(this.contador == 4){
-             this.contador = 0;
-             var nombre = this.nombresProcesos[Math.floor(Math.random()*this.nombresProcesos.length-1)+1];
-             var nodo = new Nodo(nombre);
-             nodo.proceso.preparado();
-             gantt.registrarProceso(nodo.proceso);
-             colaListos.insertar(nodo);
+
+             if(this.ejecutar){
+                 this.contador = 0;
+                 var nombre = this.nombresProcesos[Math.floor(Math.random()*this.nombresProcesos.length-1)+1];
+                 var nodo = new Nodo(nombre);
+                 nodo.proceso.preparado();
+                 gantt.registrarProceso(nodo.proceso);
+                 colaListos.insertar(nodo);
+                 this.cantidadProcesos +=1;
+             }
+
+             if(this.limite){
+                 if(this.cantidadProcesos == this.limite){
+                     this.ejecutar = false;
+                 }
+             }
+
          }else{
              this.contador += 1;
+
          }
     };
 }
@@ -63,10 +78,6 @@ function Despachador() {
 
         // Manejo de la cola de bloqueados
         if(!colaBloqueados.estaVacia()){
-            var prioridad_tiempo = $("input[name=priorizar-tiempo]").is(":checked");
-            if(prioridad_tiempo){
-                //reorganizarPrioridad(colaBloqueados);
-            }
             var raiz = colaBloqueados.traerRaiz();
             if(raiz.proceso.tiempoBloqueo >0 ){
                 raiz.proceso.tiempoBloqueo -= 1;
@@ -80,6 +91,10 @@ function Despachador() {
 
         // Si la cpu esta libre asignar el primer proceso disponible de la cola de listos
         if (!cpu.estaOcupado()) {
+            var prioridad_tiempo = $("input[name=priorizar-tiempo]").is(":checked");
+            if(prioridad_tiempo){
+                reorganizarPrioridad(colaListos);
+            }
             if (!colaListos.estaVacia()) {
                 cpu.ejecutar(colaListos.remover());
             }
@@ -359,35 +374,43 @@ function reorganizarPrioridad(cola){
     }
 
     function encontrarMenor(cola){
-        var menorEjecucion = undefined;
-        var idRaiz = cola.traerRaiz().proceso.id;
-        var ciclo = false;
-        var ajustado = false;
-        // Obtener el menor tiempo de ejecucion restante
-        while(!ciclo){
-            mover(cola);
-            if(cola.traerRaiz().proceso.id == idRaiz){
-                ciclo = true;
-            }else{
-                if(menorEjecucion == undefined){
-                    menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
-                }
-                if(cola.traerRaiz().proceso.tiempoEjecucionRestante < menorEjecucion){
-                    menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
-                }
-            }
-        }
-        console.log(menorEjecucion);
-
-        //Ciclar hasta obtenerlo en la raiz
-        while(!ajustado){
-            if(menorEjecucion == cola.traerRaiz().proceso.tiempoEjecucionRestante){
-                ajustado = true;
-            }else{
+        if(!cola.estaVacia()){
+            var menorEjecucion = undefined;
+            var idRaiz = cola.traerRaiz().proceso.id;
+            var idProceso = undefined;
+            var ciclo = false;
+            var ajustado = false;
+            // Obtener el menor tiempo de ejecucion restante
+            while(!ciclo){
                 mover(cola);
+                if(cola.traerRaiz().proceso.id == idRaiz){
+                    ciclo = true;
+                }else{
+                    if(menorEjecucion == undefined){
+                        menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
+                        idProceso = cola.traerRaiz().proceso.id;
+                    }
+                    if(cola.traerRaiz().proceso.tiempoEjecucionRestante < menorEjecucion){
+                        menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
+                        idProceso = cola.traerRaiz().proceso.id = idProceso;
+                    }
+                }
             }
-        }
 
+            if(idProceso != undefined){
+                mover(cola);
+                while(!ajustado){
+                    if(idProceso == cola.traerRaiz().proceso.id){
+                        ajustado = true;
+                    }
+                }
+            }
+
+            console.log("primer ciclo!");
+            console.log(menorEjecucion);
+            console.log(idProceso);
+
+        }
     }
     encontrarMenor(cola);
 }
