@@ -293,3 +293,7 @@ li.vacio {
 .progress-bar-listo {
     background: #5BC0DE !important;
 }
+
+.opciones{
+    margin-left: 10px;
+}

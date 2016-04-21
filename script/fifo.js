@@ -60,8 +60,13 @@ function actualizar() {
 function Despachador() {
 
     this.despachar = function () {
+
         // Manejo de la cola de bloqueados
         if(!colaBloqueados.estaVacia()){
+            var prioridad_tiempo = $("input[name=priorizar-tiempo]").is(":checked");
+            if(prioridad_tiempo){
+                reorganizarPrioridad(colaBloqueados);
+            }
             var raiz = colaBloqueados.traerRaiz();
             if(raiz.proceso.tiempoBloqueo >0 ){
                 raiz.proceso.tiempoBloqueo -= 1;
@@ -288,10 +293,9 @@ function Cola() {
     this.traerRaiz = function () {
         if (this.nodoRaiz) {
             return this.nodoRaiz;
-            this.cambiado = true;
         }
         return undefined;
-    }
+    };
 
     this.insertarNodoLoco = function (nodo1, nodo2) {
         if (nodo1.hijo == undefined) {
@@ -316,6 +320,7 @@ function Cola() {
 
             return nodo;
         }
+        return false;
     };
 
     this.estaVacia = function () {
@@ -324,7 +329,8 @@ function Cola() {
             return true;
         }
         return false;
-    }
+    };
+
 }
 
 
@@ -342,3 +348,48 @@ function createUUID() {
     var uuid = s.join("");
     return uuid;
 }
+
+
+function reorganizarPrioridad(cola){
+
+    function mover(cola){
+        var nodo = cola.remover();
+        nodo.hijo = undefined;
+        cola.insertar(nodo);
+    }
+
+    function encontrarMenor(cola){
+        var menorEjecucion = undefined;
+        var idRaiz = cola.traerRaiz().proceso.id;
+        var ciclo = false;
+        var ajustado = false;
+        // Obtener el menor tiempo de ejecucion restante
+        while(!ciclo){
+            mover(cola);
+            if(cola.traerRaiz().proceso.id == idRaiz){
+                ciclo = true;
+            }else{
+                if(menorEjecucion == undefined){
+                    menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
+                }
+                if(cola.traerRaiz().proceso.tiempoEjecucionRestante < menorEjecucion){
+                    menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
+                }
+            }
+        }
+        console.log(menorEjecucion);
+
+        //Ciclar hasta obtenerlo en la raiz
+        while(!ajustado){
+            if(menorEjecucion == cola.traerRaiz().proceso.tiempoEjecucionRestante){
+                ajustado = true;
+            }else{
+                mover(cola);
+            }
+        }
+
+    }
+    encontrarMenor(cola);
+}
+
+
