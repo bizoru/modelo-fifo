@@ -65,7 +65,7 @@ function Despachador() {
         if(!colaBloqueados.estaVacia()){
             var prioridad_tiempo = $("input[name=priorizar-tiempo]").is(":checked");
             if(prioridad_tiempo){
-                reorganizarPrioridad(colaBloqueados);
+                //reorganizarPrioridad(colaBloqueados);
             }
             var raiz = colaBloqueados.traerRaiz();
             if(raiz.proceso.tiempoBloqueo >0 ){
