@@ -27,12 +27,15 @@
         </div>
         <div class="col-md-4">
             <div class="caja">
-                <h1><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span> Priorización</h1>
+                <h1><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span>Opciones de Ejecución</h1>
                 <div class="checkbox opciones">
+                   <!--
                     <label>
                         <input type="checkbox" name="priorizar-tiempo">
-                        Priorizar por tiempo de ejecución restante.
+                        Atender por prioridad
                     </label>
+                    -->
+                    <p>Tiempo de Quantum: <span id="quantum"></span></p>
                 </div>
             </div>
         </div>
@@ -46,7 +49,7 @@
     </div>
     <!--- Estados -->
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="caja">
                 <h1><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span> Listos</h1>
                 <div id="listos">
@@ -56,7 +59,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="caja">
                 <h1><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Bloqueados</h1>
                 <div id="bloqueados">
@@ -65,7 +68,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <div class="caja">
+                <h1><span class="glyphicon glyphicon-pause" aria-hidden="true"></span>Suspendidos</h1>
+                <div id="suspendidos">
+                    <ul class="lista lista-suspendidos">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
             <div class="caja">
                 <h1><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Terminados</h1>
                 <div id="terminados">

@@ -239,6 +239,10 @@ ul {
     background-color: #5BC0DE;
 }
 
+#suspendidos li {
+    background-color: #af07bd;
+}
+
 .espacio {
     height: 10px;
 }
@@ -247,6 +251,13 @@ li.vacio {
     background-color: rgba(43, 43, 43, 0.15) !important;
     color: black;
     border: 1px dashed #9E9E9E;
+}
+
+
+#suspendidos {
+
+    height: 320px;
+    overflow-y: auto;
 }
 
 #listos {
@@ -282,6 +293,11 @@ li.vacio {
     background: #80BD80 !important;
 }
 
+.progress-bar-suspendido {
+    background: #af07bd !important;
+
+}
+
 .progress-bar-ejecucion {
     background: #FFC107 !important;
 }
@@ -296,4 +312,9 @@ li.vacio {
 
 .opciones{
     margin-left: 10px;
+
+}
+
+.opciones p {
+    font-size: 14px;
 }

@@ -31,6 +31,9 @@ function Gantt(){
             if(this.procesos[proceso]['estado'] == "bloqueado"){
                 progressBar = " <div class='progress-bar progress-bar-bloqueado' role='progressbar'></div>";
             }
+            if(this.procesos[proceso]['estado'] == "suspendido"){
+                progressBar = " <div class='progress-bar progress-bar-suspendido' role='progressbar'></div>";
+            }
 
             if(!$("#"+this.procesos[proceso]['id']).length){
 

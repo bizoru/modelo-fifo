@@ -2,10 +2,13 @@ var tiempoGlobal = 0;
 var colaListos = new Cola();
 var colaBloqueados = new Cola();
 var colaTerminados = new Cola();
+var colaSuspendidos = new Cola();
 var cpu = new CPU();
 var despachador = new Despachador();
-var usuario =  new usuario(5);
+var usuario =  new usuario(7);
 var gantt = new Gantt();
+var magicalQuatum = 3;
+
 
 iniciar();
 
@@ -62,9 +65,11 @@ function actualizar() {
 
     $("#tiempo-global").html();
     $("#tiempo-global").html(tiempoGlobal);
+    $("#quantum").html(magicalQuatum);
     pintarCola(colaListos, ".lista-listos");
     pintarCola(colaBloqueados, ".lista-bloqueados");
     pintarCola(colaTerminados, ".lista-terminados");
+    pintarCola(colaSuspendidos, ".lista-suspendidos");
     pintarCPU('.lista-cpu');
     despachador.despachar();
     gantt.actualizarGraficos();
@@ -75,6 +80,19 @@ function actualizar() {
 function Despachador() {
 
     this.despachar = function () {
+
+        // Manejo de la cola de suspendidos
+        if(!colaSuspendidos.estaVacia()){
+            var raiz = colaSuspendidos.traerRaiz();
+            if(raiz.proceso.tiempoSuspendido >0 ){
+                raiz.proceso.tiempoSuspendido -= 1;
+            }else{
+                raiz = colaSuspendidos.remover();
+                raiz.hijo = undefined;
+                raiz.proceso.preparado();
+                colaListos.insertar(raiz);
+            }
+        }
 
         // Manejo de la cola de bloqueados
         if(!colaBloqueados.estaVacia()){
@@ -106,6 +124,14 @@ function Despachador() {
                 colaTerminados.insertar(nodo);
             } else {
                 cpu.nodo.proceso.tiempoEjecucionRestante -= 1;
+                magicalQuatum -= 1;
+                $("#quantum").html(magicalQuatum);
+                if(magicalQuatum == 0){
+                    cpu.nodo.proceso.suspendido();
+                    colaSuspendidos.insertar(cpu.liberar());
+                    magicalQuatum = 3;
+                }
+
                 if(debeBloquear()){
                     cpu.nodo.proceso.bloqueado();
                     cpu.nodo.proceso.tiempoBloqueo = Math.floor(Math.random()*7)+1;
@@ -120,7 +146,7 @@ function Despachador() {
 }
 
 function debeBloquear(){
-    if(Math.floor(Math.random()*8)+1 == 3 || Math.floor(Math.random()*8)+1 == 1){
+    if(Math.floor(Math.random()*8)+1 == 3){
           return true;
     }
     return false;
@@ -174,7 +200,8 @@ function procesoHTML(proceso) {
     var mensajeTiempoRestante = "";
     var mensajeTiempoTerminado = "";
     var mensajeTiempoLlegada = "<p>Tiempo Llegada " + proceso.tiempoLlegada + "</p>";
-    var id = "<p>Id: <b>"+proceso.id+"</b></p>";
+    var shortId = proceso.id.split("-").slice(0,2).join("-")
+    var id = "<p>Id: <b>"+shortId+"</b></p>";
 
     if(proceso.tiempoBloqueo > 0){
         mensajeBloqueo = "<p>Tiempo Bloqueo <b>" + proceso.tiempoBloqueo + "</b></p>";
@@ -190,7 +217,7 @@ function procesoHTML(proceso) {
 
     var html = "<li><div>" +
         "<p><b>" + proceso.nombre + "</p></b>" +
-        "<p>Tiempo Rafaga: <b>" + proceso.rafaga + "</b></p>" +
+        "<p>Prioridad: <b>" + proceso.prioridad + "</b></p>" +
         mensajeTiempoRestante+
         mensajeBloqueo+
         mensajeTiempoLlegada +
@@ -256,13 +283,15 @@ function Proceso(nombre) {
     this.rafaga = Math.floor((Math.random() * 10) + 2);
     this.tiempoEjecucionRestante = this.rafaga;
     this.tiempoBloqueo = 0;
+    this.tiempoSuspendido = 3;
     this.tiempoLlegada = tiempoGlobal;
     this.tiempoTerminado = undefined;
     this.tiempoRetorno = undefined;
     this.tiempoEspera = undefined;
     this.tiempoComienzo = undefined;
     this.gantt = gantt;
-
+    this.prioridad = Math.floor((Math.random() * 4) + 1);
+    this.envejecimiento = 0;
     this.setTiempoLlegada = function (tiempo) {
         this.tiempoLlegada = tiempo;
     }
@@ -277,6 +306,11 @@ function Proceso(nombre) {
         this.gantt.actualizarEstadoProceso(this.id,this.estado);
     }
 
+    this.suspendido = function(){
+        this.estado = "suspendido";
+        this.gantt.actualizarEstadoProceso(this.id,this.estado);
+    }
+
     this.terminado = function(){
         this.estado = "terminado";
         this.gantt.actualizarEstadoProceso(this.id,this.estado);
@@ -287,6 +321,15 @@ function Proceso(nombre) {
         this.gantt.actualizarEstadoProceso(this.id,this.estado);
     }
 
+    this.envejecer = function(){
+        this.envejecimiento +=1;
+        if(this.envejecimiento == 5){
+            this.envejecimiento = 0 ;
+            if(this.prioridad > 1){
+                this.prioridad -= 1;
+            }
+        }
+    }
 }
 
 function Cola() {
@@ -370,12 +413,13 @@ function reorganizarPrioridad(cola){
     function mover(cola){
         var nodo = cola.remover();
         nodo.hijo = undefined;
+        nodo.proceso.envejecer();
         cola.insertar(nodo);
     }
 
     function encontrarMenor(cola){
         if(!cola.estaVacia()){
-            var menorEjecucion = undefined;
+            var menorPrioridad = undefined;
             var idRaiz = cola.traerRaiz().proceso.id;
             var idProceso = undefined;
             var ciclo = false;
@@ -386,12 +430,12 @@ function reorganizarPrioridad(cola){
                 if(cola.traerRaiz().proceso.id == idRaiz){
                     ciclo = true;
                 }else{
-                    if(menorEjecucion == undefined){
-                        menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
+                    if(menorPrioridad == undefined){
+                        menorPrioridad = cola.traerRaiz().proceso.prioridad;
                         idProceso = cola.traerRaiz().proceso.id;
                     }
-                    if(cola.traerRaiz().proceso.tiempoEjecucionRestante < menorEjecucion){
-                        menorEjecucion = cola.traerRaiz().proceso.tiempoEjecucionRestante;
+                    if(cola.traerRaiz().proceso.prioridad < menorPrioridad){
+                        menorPrioridad = cola.traerRaiz().proceso.prioridad;
                         idProceso = cola.traerRaiz().proceso.id = idProceso;
                     }
                 }
@@ -407,7 +451,7 @@ function reorganizarPrioridad(cola){
             }
 
             console.log("primer ciclo!");
-            console.log(menorEjecucion);
+            console.log(menorPrioridad);
             console.log(idProceso);
 
         }
