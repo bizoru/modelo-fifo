@@ -35,6 +35,14 @@ function Gantt(){
                 progressBar = " <div class='progress-bar progress-bar-suspendido' role='progressbar'></div>";
             }
 
+            if(this.procesos[proceso]['estado'] == "cola-prioridad-uno"){
+                progressBar = " <div class='progress-bar progress-bar-cola-prioridad-uno' role='progressbar'></div>";
+            }
+
+            if(this.procesos[proceso]['estado'] == "cola-prioridad-dos"){
+                progressBar = " <div class='progress-bar progress-bar-cola-prioridad-dos' role='progressbar'></div>";
+            }
+
             if(!$("#"+this.procesos[proceso]['id']).length){
 
                 var html = "<div>"+ this.procesos[proceso]['nombre']+" <b>Id:</b> " +this.procesos[proceso]['id']+"</div><div id='"+this.procesos[proceso]['id']+"' class='progress'></div>";

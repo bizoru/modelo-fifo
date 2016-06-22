@@ -2,7 +2,10 @@ var tiempoGlobal = 0;
 var colaListos = new Cola();
 var colaBloqueados = new Cola();
 var colaTerminados = new Cola();
-var colaSuspendidos = new Cola();
+
+var colaPrioridadUno = new Cola();
+var colaPrioridadDos = new Cola();
+
 var cpu = new CPU();
 var despachador = new Despachador();
 var usuario =  new usuario(7);
@@ -69,7 +72,8 @@ function actualizar() {
     pintarCola(colaListos, ".lista-listos");
     pintarCola(colaBloqueados, ".lista-bloqueados");
     pintarCola(colaTerminados, ".lista-terminados");
-    pintarCola(colaSuspendidos, ".lista-suspendidos");
+    pintarCola(colaPrioridadUno, ".lista-cola-prioridad-uno");
+    pintarCola(colaPrioridadDos, ".lista-cola-prioridad-dos");
     pintarCPU('.lista-cpu');
     despachador.despachar();
     gantt.actualizarGraficos();
@@ -81,17 +85,22 @@ function Despachador() {
 
     this.despachar = function () {
 
-        // Manejo de la cola de suspendidos
-        if(!colaSuspendidos.estaVacia()){
-            var raiz = colaSuspendidos.traerRaiz();
-            if(raiz.proceso.tiempoSuspendido >0 ){
-                raiz.proceso.tiempoSuspendido -= 1;
-            }else{
-                raiz = colaSuspendidos.remover();
-                raiz.hijo = undefined;
-                raiz.proceso.preparado();
-                colaListos.insertar(raiz);
-            }
+        // Manejo de las colas de Prioridades
+
+        // Atender Cola Prioridad 1
+        if(!colaPrioridadUno.estaVacia()){
+            raiz = colaPrioridadUno.remover();
+            raiz.hijo = undefined;
+            raiz.proceso.preparado();
+            colaListos.insertar(raiz);
+        }
+
+        // Atender Cola Prioridad 2
+        if(!colaPrioridadDos.estaVacia()){
+            raiz = colaPrioridadDos.remover();
+            raiz.hijo = undefined;
+            raiz.proceso.prioridadUno();
+            colaPrioridadUno.insertar(raiz);
         }
 
         // Manejo de la cola de bloqueados
@@ -103,7 +112,7 @@ function Despachador() {
                 raiz = colaBloqueados.remover();
                 raiz.hijo = undefined;
                 raiz.proceso.preparado();
-                colaListos.insertar(raiz);
+                colaPrioridadDos.insertar(raiz);
             }
         }
 
@@ -122,21 +131,32 @@ function Despachador() {
                 var nodo = cpu.liberar();
                 nodo.proceso.terminado();
                 colaTerminados.insertar(nodo);
+                magicalQuatum = 3;
             } else {
                 cpu.nodo.proceso.tiempoEjecucionRestante -= 1;
-                magicalQuatum -= 1;
+
                 $("#quantum").html(magicalQuatum);
+                magicalQuatum -= 1;
+
+
                 if(magicalQuatum == 0){
-                    cpu.nodo.proceso.suspendido();
-                    colaSuspendidos.insertar(cpu.liberar());
+
+                    cpu.nodo.proceso.prioridadUno();
+                    colaPrioridadDos.insertar(cpu.liberar());
                     magicalQuatum = 3;
+
                 }
 
                 if(debeBloquear()){
                     cpu.nodo.proceso.bloqueado();
                     cpu.nodo.proceso.tiempoBloqueo = Math.floor(Math.random()*7)+1;
                     colaBloqueados.insertar(cpu.liberar());
+                    magicalQuatum = 3;
+
                 }
+
+
+
 
             }
         }
@@ -162,6 +182,14 @@ function pintarCPU(selectorHtml) {
         cpuVacio(selectorHtml);
     }
 
+}
+function envejecerCola(raiz){
+
+    if(raiz.hijo){
+        envejecerCola(raiz.hijo);
+    }
+    raiz.envejecer();
+    return;
 }
 
 function pintarCola(cola, selectorHtml) {
@@ -208,16 +236,16 @@ function procesoHTML(proceso) {
         mensajeTiempoLlegada = "";
     }
     if(proceso.tiempoEjecucionRestante > 0){
-        mensajeTiempoRestante = "<p>Tiempo Restante Ejecucion <b>" + proceso.tiempoEjecucionRestante + "</b></p>";
+        mensajeTiempoRestante = "<p>T Restante Ej <b>" + proceso.tiempoEjecucionRestante + "</b></p>";
     }
     if(proceso.tiempoTerminado != undefined){
         var tiempoTotal = proceso.tiempoTerminado - proceso.tiempoLlegada;
-        mensajeTiempoTerminado = "<p>Tiempo Terminado <b>" + proceso.tiempoTerminado + "</b> Total: "+ tiempoTotal+"</p>";
+        //mensajeTiempoTerminado = "<p>Tiempo Terminado <b>" + proceso.tiempoTerminado + "</b> Total: "+ tiempoTotal+"</p>";
     }
 
     var html = "<li><div>" +
         "<p><b>" + proceso.nombre + "</p></b>" +
-        "<p>Prioridad: <b>" + proceso.prioridad + "</b></p>" +
+        "<p>T Envejecimiento: <b>" + proceso.envejecimiento + "</b></p>" +
         mensajeTiempoRestante+
         mensajeBloqueo+
         mensajeTiempoLlegada +
@@ -308,6 +336,16 @@ function Proceso(nombre) {
 
     this.suspendido = function(){
         this.estado = "suspendido";
+        this.gantt.actualizarEstadoProceso(this.id,this.estado);
+    }
+
+    this.prioridadUno = function(){
+        this.estado = "cola-prioridad-uno";
+        this.gantt.actualizarEstadoProceso(this.id,this.estado);
+    }
+
+    this.prioridadDos = function(){
+        this.estado = "cola-prioridad-dos";
         this.gantt.actualizarEstadoProceso(this.id,this.estado);
     }
 
