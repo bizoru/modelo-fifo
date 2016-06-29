@@ -24,7 +24,7 @@ function iniciar() {
             actualizar();
             usuario.abrirProceso();
 
-        }, 2000);
+        }, 1000);
     }
 
     reloj();
@@ -46,7 +46,24 @@ function usuario(limite){
                  var nodo = new Nodo(nombre);
                  nodo.proceso.preparado();
                  gantt.registrarProceso(nodo.proceso);
-                 colaListos.insertar(nodo);
+
+                 var colaNacimiento = Math.floor(Math.random() * 3) + 1;
+
+                 if(colaNacimiento == 1){
+
+                     colaPrioridadUno.insertar(nodo);
+                 }
+
+                 if(colaNacimiento == 2){
+                     colaPrioridadDos.insertar(nodo);
+                 }
+
+                 if(colaNacimiento == 3){
+                     // Listos aka prioridad 3
+                     colaListos.insertar(nodo);
+                 }
+
+
                  this.cantidadProcesos +=1;
              }
 
@@ -85,25 +102,7 @@ function Despachador() {
 
     this.despachar = function () {
 
-        // Manejo de las colas de Prioridades
-
-        // Atender Cola Prioridad 1
-        if(!colaPrioridadUno.estaVacia()){
-            raiz = colaPrioridadUno.remover();
-            raiz.hijo = undefined;
-            raiz.proceso.preparado();
-            colaListos.insertar(raiz);
-        }
-
-        // Atender Cola Prioridad 2
-        if(!colaPrioridadDos.estaVacia()){
-            raiz = colaPrioridadDos.remover();
-            raiz.hijo = undefined;
-            raiz.proceso.prioridadUno();
-            colaPrioridadUno.insertar(raiz);
-        }
-
-        // Manejo de la cola de bloqueados
+        // Manejo de la cola de bloqueados, si se bloquea va para ultima prioridad
         if(!colaBloqueados.estaVacia()){
             var raiz = colaBloqueados.traerRaiz();
             if(raiz.proceso.tiempoBloqueo >0 ){
@@ -112,50 +111,71 @@ function Despachador() {
                 raiz = colaBloqueados.remover();
                 raiz.hijo = undefined;
                 raiz.proceso.preparado();
-                colaPrioridadDos.insertar(raiz);
+                colaListos.insertar(raiz);
             }
         }
 
         // Si la cpu esta libre asignar el primer proceso disponible de la cola de listos
         if (!cpu.estaOcupado()) {
-            var prioridad_tiempo = $("input[name=priorizar-tiempo]").is(":checked");
+
+            /* var prioridad_tiempo = $("input[name=priorizar-tiempo]").is(":checked");
             if(prioridad_tiempo){
                 reorganizarPrioridad(colaListos);
-            }
+            }*/
+
             if (!colaListos.estaVacia()) {
                 cpu.ejecutar(colaListos.remover());
             }
+
+            // Manejo de las colas de Prioridades
+
+            // Atender Cola Prioridad 1
+            if(!colaPrioridadUno.estaVacia()){
+                raiz = colaPrioridadUno.remover();
+                raiz.hijo = undefined;
+                raiz.proceso.preparado();
+                //colaListos.insertar(raiz);
+                cpu.ejecutar(raiz);
+                return;
+            }
+
+            // Atender Cola Prioridad 2
+            if(!colaPrioridadDos.estaVacia()){
+                raiz = colaPrioridadDos.remover();
+                raiz.hijo = undefined;
+                raiz.proceso.prioridadUno();
+                //colaPrioridadUno.insertar(raiz);
+                cpu.ejecutar(raiz);
+                return;
+            }
+
+            // Atender Cola Prioridad 3
+            if(!colaListos.estaVacia()){
+                raiz = colaListos.remover();
+                raiz.hijo = undefined;
+                raiz.proceso.preparado();
+                cpu.ejecutar(raiz);
+                return;
+            }
+
+
         } else {
             if (cpu.nodo.proceso.tiempoEjecucionRestante == 0) {
                 cpu.nodo.proceso.tiempoTerminado = tiempoGlobal;
                 var nodo = cpu.liberar();
                 nodo.proceso.terminado();
                 colaTerminados.insertar(nodo);
-                magicalQuatum = 3;
+
             } else {
                 cpu.nodo.proceso.tiempoEjecucionRestante -= 1;
-
-                $("#quantum").html(magicalQuatum);
-                magicalQuatum -= 1;
-
-
-                if(magicalQuatum == 0){
-
-                    cpu.nodo.proceso.prioridadUno();
-                    colaPrioridadDos.insertar(cpu.liberar());
-                    magicalQuatum = 3;
-
-                }
 
                 if(debeBloquear()){
                     cpu.nodo.proceso.bloqueado();
                     cpu.nodo.proceso.tiempoBloqueo = Math.floor(Math.random()*7)+1;
                     colaBloqueados.insertar(cpu.liberar());
-                    magicalQuatum = 3;
+
 
                 }
-
-
 
 
             }
